@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailProductActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:title="Chi tiết sản phẩm"
+        app:titleTextColor="@color/white"
+        android:background="@color/black"
+        android:layout_height="?attr/actionBarSize"
+        tools:ignore="MissingConstraints"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp">
+
+            <ImageView
+                android:id="@+id/productimg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="#C5C5C5"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:text="Phân loại có sẵn"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listProductimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#EDEDED"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <TextView
+                android:id="@+id/shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:drawableStart="@drawable/shop_20"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/round_star_24"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="3.5 Xếp hạng"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/danhgia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 Đánh giá"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/sold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="0 Đã bán"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/warehouse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giá:  "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#FF5722"
+                    android:textSize="@dimen/_18ssp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:id="@+id/categorymain1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mẫu: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listColor"
+                    android:layout_width="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"/>
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="Black"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="White"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" /> -->
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categorymain2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="M"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="XL"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="L"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="S"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listSize"
+                    android:layout_width="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/giam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_quantity"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="-"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_category"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/tang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_quantity"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_4sdp"
+                    android:paddingRight="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:text="+"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/addcart"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_button"
+                android:text="Thêm vào giỏ hàng"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="PHẦN MÔ TẢ SẢN PHẨM"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:id="@+id/descrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:maxLines="5"
+                android:text=""
+                android:textColor="#656565"
+                android:textSize="@dimen/_14sdp" />
+            <TextView
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/white"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Đọc thêm" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

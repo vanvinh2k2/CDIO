@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/_2sdp"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/item"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/check"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/teal_700"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/anhSp"
+                    android:padding="@dimen/_2sdp"
+                    android:background="@drawable/edit_img"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_5sdp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tenSp"
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="Tên sản phẩm"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp" />
+
+                <TextView
+                    android:id="@+id/loaiSp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phân loại: A D"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp" />
+                <TextView
+                    android:id="@+id/giaSp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:text="Giá: 150,000,000Đ"
+                    android:textColor="#FF6D00"
+                    android:textSize="@dimen/_14ssp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/giam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_quantity"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_category"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:text="10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:id="@+id/tang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edit_quantity"
+                        android:paddingLeft="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_15sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:text="+"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center|left"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/xoa"
+                        android:textSize="@dimen/_14ssp"
+                        android:layout_width="@dimen/_80sdp"
+                        android:backgroundTint="@color/white"
+                        android:layout_height="@dimen/_32sdp"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="top|right"
+                        android:gravity="center"
+                        android:text="Xóa" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
