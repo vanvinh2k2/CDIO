@@ -372,6 +372,24 @@
                 android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:text="Đọc thêm" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:text="Các sản phẩm khác của shop"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listproductother"
+                android:layout_width="match_parent"
+                android:layout_marginRight="5dp"
+                app:spanCount="2"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

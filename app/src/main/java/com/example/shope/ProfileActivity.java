@@ -140,4 +140,10 @@ public class ProfileActivity extends AppCompatActivity {
         addressNull = findViewById(R.id.addressnull);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
     }
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
+    }
 }

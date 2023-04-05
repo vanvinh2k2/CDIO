@@ -29,6 +29,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +55,13 @@ public class DetailProductActivity extends AppCompatActivity {
     StyleAdapter adapterSize;
     List<String> arrsize, arrcolor;
     int kt = 0;
-    public String getSize = "", getStyle = "",
-            getStoreId = "", getProductId = "";
+    public String getSize = "A", getStyle = "A", getProductId = "";
+    String getStoreId = "";
     public int getQuantity = 1;
     ReferenceManager manager;
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
+    long price = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,18 +101,15 @@ public class DetailProductActivity extends AppCompatActivity {
                 Optioned optioned = new Optioned();
                 optioned.setOption1(getStyle);
                 optioned.setOption2(getSize);
-
                 String quantity1 = quantitytxt.getText().toString();
                 String idUser = manager.getString("_id");
-                //Log.e("err",new Gson().toJson(optioned).toString()+", "+quantity1+", "+", "+idUser+", "+getStoreId);
-                //Toast.makeText(DetailProductActivity.this, getStyle+ " " +getSize+ " " +getQuantity, Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getApplicationContext(), CartActivity.class));
-                disposable.add(apiBanHang.addCart(idUser, new Gson().toJson(optioned).toString(), getProductId, getStoreId, quantity1)
+                Log.e("er",idUser+", "+getProductId+", "+getStoreId+", "+ new Gson().toJson(optioned));
+                disposable.add(apiBanHang.addCart(idUser, new Gson().toJson(optioned).toString(), getProductId, getStoreId, quantity1, price)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 resultModel -> {
-                                    Snackbar.make(v, "Đã thêm vào giỏ hàng",2000)
+                                    Snackbar.make(v, resultModel.getMessage(),2000)
                                             .setActionTextColor(Color.GREEN)
                                             .show();
                                 },
@@ -154,6 +155,7 @@ public class DetailProductActivity extends AppCompatActivity {
         product = (Product) intent.getSerializableExtra("data");
         imgDetailProduct = product.getListImages();
         getStoreId = product.getStoreId().get_id();
+        price = product.getPrice().get$numberDecimal();
         getProductId = product.get_id();
         Picasso.get().load(product.getImagePreview())
                 .placeholder(R.drawable.dep2)

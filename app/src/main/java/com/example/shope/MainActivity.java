@@ -37,6 +37,7 @@ import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
 import com.google.android.material.navigation.NavigationView;
+import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
@@ -58,18 +59,19 @@ public class MainActivity extends AppCompatActivity {
     ReferenceManager manager;
     BannerAdapter bannerAdapter;
     CategoryAdapter categoryAdapter;
-    ProductAdapter productAdapter;
+    ProductAdapter productAdapter, productHotAdapter;
     MenuCategoryAdapter menuCategoryAdapter;
     List<BannerCategory> arrBanner;
     List<Category> arrCategory;
     List<MenuCategory> arrMenu;
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
-    List<Product> arrProduct;
+    List<Product> arrProduct, arrProductHot;
     ViewFlipper flipper;
     ListView listMenu;
     NestedScrollView nestedScroll;
-    RecyclerView banner, category, product, category2;
+    RecyclerView banner, category, product, category2, productHot;
+    NotificationBadge tb;
     //StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration((StickyRecyclerHeadersAdapter) categoryAdapter);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +84,47 @@ public class MainActivity extends AppCompatActivity {
         getListBanner();
         getCategory();
         getProduct();
+        getProductHot();
         getMenuCatagory();
-        setupStickyFooter();
+        //setupStickyFooter();
+    }
+    /*private void getCart() {
+        String user1 = manager.getString("_id");
+        disposable.add(apiBanHang.getCart(user1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        cartModel -> {
+                            if(cartModel.isSuccess()){
+                                Constant.allProduct = cartModel.getData();
+                                Intent intent =new Intent(getApplicationContext(), CartActivity.class);
+                                startActivity(intent);
+                            }
+
+                        },
+                        throwable -> {
+                            Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                ));
+
+    }*/
+    private void getProductHot() {
+        disposable.add(apiBanHang.getProduct()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        productModel -> {
+                            if(productModel.isSuccess()){
+                                arrProductHot = productModel.getData();
+                                productHotAdapter = new ProductAdapter(arrProductHot, R.layout.item_product_hot, MainActivity.this);
+                                productHot.setAdapter(productHotAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(this, throwable.getMessage()+"", Toast.LENGTH_LONG).show();
+                            Log.e("er",throwable.getMessage()+"");
+                        }
+                ));
     }
 
     private void getMenuCatagory() {
@@ -202,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HidenActivity.class));
+                startActivity(new Intent(MainActivity.this, HidenActivity.class));
+                //getCart();
             }
         });
         Picasso.get().load(manager.getString("avatar"))
@@ -248,6 +290,7 @@ public class MainActivity extends AppCompatActivity {
         arrBanner = new ArrayList<>();
         arrCategory = new ArrayList<>();
         arrProduct = new ArrayList<>();
+        arrProductHot = new ArrayList<>();
         arrMenu = new ArrayList<>();
         manager = new ReferenceManager(MainActivity.this);
         toolbar = findViewById(R.id.toolbar);
@@ -259,11 +302,13 @@ public class MainActivity extends AppCompatActivity {
         category = findViewById(R.id.listcategory);
         product = findViewById(R.id.listproduct);
         category2 = findViewById(R.id.listcategory2);
+        productHot = findViewById(R.id.listProductHot);
         nestedScroll = findViewById(R.id.nestedScrollView);
         listMenu = findViewById(R.id.listmenu);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
         nameProfile = findViewById(R.id.nameprofile);
         imgProfile = findViewById(R.id.imageprofile);
+        tb = findViewById(R.id.soluong);
     }
 
     @Override
@@ -274,5 +319,32 @@ public class MainActivity extends AppCompatActivity {
         }
         else Toast.makeText(this, "Nhấn lần nữa để thoát", Toast.LENGTH_SHORT).show();
         backPress = System.currentTimeMillis();
+    }
+
+    /*@Override
+    protected void onResume() {
+        disposable.add(apiBanHang.getCart(manager.getString("_id"))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        cartModel -> {
+                            if(cartModel.isSuccess()){
+                                Constant.allProduct = cartModel.getData();
+                                if(Constant.allProduct.size()!=0)
+                                    tb.setText(String.valueOf(Constant.allProduct.size()));
+                            }
+
+                        },
+                        throwable -> {
+                            Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                ));
+        super.onResume();
+    }*/
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
     }
 }

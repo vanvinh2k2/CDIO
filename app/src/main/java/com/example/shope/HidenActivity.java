@@ -6,14 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.shope.bannerAdapter.CartAdapter;
-import com.example.shope.model.Cart;
 import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
-
-import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -32,13 +28,14 @@ public class HidenActivity extends AppCompatActivity {
     }
     private void getCart() {
         String user1 = manager.getString("_id");
+        Toast.makeText(this, user1+"", Toast.LENGTH_SHORT).show();
         disposable.add(apiBanHang.getCart(user1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         cartModel -> {
                             if(cartModel.isSuccess()){
-                                Constant.allProduct = cartModel.getData().get(0).getCartItemIds();
+                                Constant.allProduct = cartModel.getData();
                                 Intent intent =new Intent(getApplicationContext(), CartActivity.class);
                                 startActivity(intent);
                             }
@@ -53,5 +50,11 @@ public class HidenActivity extends AppCompatActivity {
     private void anhXa() {
         manager = new ReferenceManager(HidenActivity.this);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
     }
 }

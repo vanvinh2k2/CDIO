@@ -14,13 +14,11 @@ import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.CartAdapter;
 import com.example.shope.event.SumEvent;
-import com.example.shope.model.Cart;
-import com.example.shope.model.CartItem;
+import com.example.shope.model.Cart1;
 import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +38,7 @@ public class CartActivity extends AppCompatActivity {
     public TextView tongtien, cartNull;
     Button mua;
     public CartAdapter cartAdapter;
-    List<CartItem> arrcart;
+    List<Cart1> arrcart;
     public long sumMoney = 0;
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
@@ -52,15 +50,15 @@ public class CartActivity extends AppCompatActivity {
         anhXa();
         getTool();
         getCart();
-        SumProduct();
-        thanhToan();
+        //SumProduct();
+        //thanhToan();
     }
 
     private void thanhToan() {
         mua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<CartItem> muaSp = new ArrayList<>();
+                List<Cart1> muaSp = new ArrayList<>();
                 muaSp = Constant.listProduct;
                 if(muaSp.size() == 0){
                     Toast.makeText(CartActivity.this, "Vui lòng chọn sản phẩm!", Toast.LENGTH_SHORT).show();
@@ -80,7 +78,7 @@ public class CartActivity extends AppCompatActivity {
                 .subscribe(
                         resultModel -> {
                             if(resultModel.isSuccess()){
-                                Toast.makeText(this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Đã xóa thành công", Toast.LENGTH_SHORT).show();
                             }
                         },
                         throwable -> {
@@ -90,6 +88,7 @@ public class CartActivity extends AppCompatActivity {
         SumProduct();
     }
     public void getCart() {
+        Toast.makeText(this, arrcart.size()+"", Toast.LENGTH_SHORT).show();
         arrcart = Constant.allProduct;
         if(arrcart.size()==0){
             cartNull.setVisibility(View.VISIBLE);
@@ -105,9 +104,7 @@ public class CartActivity extends AppCompatActivity {
         sumMoney = 0;
         for(int i=0;i<Constant.listProduct.size();i++){
             sumMoney = sumMoney + (Constant.listProduct.get(i)
-                    .getProductId()
-                    .getPrice()
-                    .get$numberDecimal() * Constant.listProduct.get(i).getQuantity());
+                    .getPrice() * Constant.listProduct.get(i).getQuantity());
         }
         DecimalFormat format = new DecimalFormat("###,###,###");
         tongtien.setText("Tổng thanh toán: "+format.format(sumMoney)+"Đ");
@@ -162,5 +159,10 @@ public class CartActivity extends AppCompatActivity {
         if(event!=null){
             SumProduct();
         }
+    }
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
     }
 }

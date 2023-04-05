@@ -111,4 +111,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
+    }
 }

@@ -68,7 +68,6 @@ public interface ApiBanHang {
             @Path("user") String user,
             @Path("address") String address
     );
-//new Gson().toJson(Utils.muaHang)
     @PUT("address/update-address/{user}/{address}/")
     @FormUrlEncoded
     Observable<ResultModel> updateAddress(
@@ -97,12 +96,21 @@ public interface ApiBanHang {
             @Field("optionStyle") String optionStyle,
             @Field("productId") String productId,
             @Field("storeId") String storeId,
-            @Field("quantity") String quantity
+            @Field("quantity") String quantity,
+            @Field("price") long price
     );
 
-    @DELETE("cart/remove-cart-item/{user}/{itemcart}/")
+    @DELETE("cart/remove-cart/{user}/{itemcart}/")
     Observable<ResultModel> deleteItemCart(
             @Path("user") String user,
             @Path("itemcart") String itemCart
     );
+
+    @GET("product/list-other-products/by-user/{idStore}/")
+    Observable<ProductModel> getProductOfShop(
+            @Path("idStore") String idStore
+    );
+
+    @GET("product/list-hot-products")
+    Observable<ProductModel> getProductHot();
 }

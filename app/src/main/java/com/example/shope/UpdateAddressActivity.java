@@ -219,4 +219,10 @@ public class UpdateAddressActivity extends AppCompatActivity {
     void text(String v){
         Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
+    }
 }

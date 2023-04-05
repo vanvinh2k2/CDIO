@@ -1,11 +1,7 @@
 package com.example.shope.bannerAdapter;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +10,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shope.CartActivity;
-import com.example.shope.MainActivity;
 import com.example.shope.R;
 import com.example.shope.event.SumEvent;
-import com.example.shope.model.Cart;
-import com.example.shope.model.CartItem;
-import com.example.shope.model.Category;
+import com.example.shope.model.Cart1;
 import com.example.shope.onClick.ItemChoiceListener;
-import com.example.shope.onClick.ItemClickListener;
 import com.example.shope.utils.Constant;
 import com.squareup.picasso.Picasso;
 
@@ -37,11 +28,11 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder>{
-    List<CartItem> arrcart;
+    List<Cart1> arrcart;
     int layout;
     CartActivity context;
 
-    public CartAdapter(List<CartItem> arrcart, int layout, CartActivity context) {
+    public CartAdapter(List<Cart1> arrcart, int layout, CartActivity context) {
         this.arrcart = arrcart;
         this.layout = layout;
         this.context = context;
@@ -57,16 +48,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder>{
     @Override
     public void onBindViewHolder(@NonNull CartHolder holder, int position) {
         int vt = position;
-        CartItem cart = arrcart.get(position);
+        Cart1 cart = arrcart.get(position);
         Picasso.get().load(cart.getProductId().getImagePreview())
                 .placeholder(R.drawable.dep2)
                 .into(holder.img);
         holder.name.setText(cart.getProductId().getName());
-        if(cart.getOptionStyle().getOption1().length() == 0) holder.category.setVisibility(View.GONE);
-        else holder.category.setText("Loại: "+cart.getOptionStyle().getOption1()+" - "+cart.getOptionStyle().getOption2());
+        /*if(cart.getOptionStyle().getOption1() == null) holder.category.setVisibility(View.GONE);
+        else holder.category.setText("Loại: "+cart.getOptionStyle().getOption1()+" - "+cart.getOptionStyle().getOption2());*/
         holder.quantity.setText(cart.getQuantity()+"");
         DecimalFormat format = new DecimalFormat("###,###,###");
-        holder.price.setText("Giá: "+format.format(cart.getProductId().getPrice().get$numberDecimal())+"đ");
+        holder.price.setText("Giá: "+format.format(cart.getPrice())+"đ");
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

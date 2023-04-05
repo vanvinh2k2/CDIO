@@ -106,7 +106,7 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                         <TextView
-                            android:text="Tất cả sản phẩm"
+                            android:text="Danh mục"
                             android:textStyle="bold"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:textSize="@dimen/_16sdp"
@@ -125,7 +125,39 @@
                             android:layout_marginRight="5dp"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+                        <TextView
+                            android:text="Sản phẩm bán chạy"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:textSize="@dimen/_16sdp"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/listProductHot"
+                            android:layout_width="match_parent"
+                            android:background="#EDEDED"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingRight="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_5sdp"
+                            android:paddingBottom="@dimen/_5sdp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        <TextView
+                            android:text="Tất cả sản phẩm"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:textSize="@dimen/_16sdp"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/listproduct"
                             android:layout_width="match_parent"

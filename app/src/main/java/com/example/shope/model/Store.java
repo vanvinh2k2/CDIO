@@ -3,7 +3,8 @@ package com.example.shope.model;
 import java.io.Serializable;
 
 public class Store implements Serializable {
-    String _id, name, location, avatar;
+    String _id;
+    String name, location, avatar;
 
     public String getAvatar() {
         return avatar;

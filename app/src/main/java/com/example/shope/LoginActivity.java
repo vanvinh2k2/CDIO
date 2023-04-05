@@ -118,12 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
     }
 
-    @Override
-    protected void onDestroy() {
-        disposable.clear();
-        super.onDestroy();
-    }
-
     boolean checkInput(){
         if(emailedt.getText().toString().trim().isEmpty()){
             text("Vui lòng nhập Email!");
@@ -137,5 +131,11 @@ public class LoginActivity extends AppCompatActivity {
     }
     void text(String v){
         Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
     }
 }

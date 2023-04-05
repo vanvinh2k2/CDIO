@@ -2,7 +2,15 @@ package com.example.shope.model;
 
 public class Category {
     private String image;
-    private String name;
+    private String name, _id;
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
 
     public String getImage() {
         return image;
