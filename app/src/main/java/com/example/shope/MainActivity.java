@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuCatagory();
         //setupStickyFooter();
     }
-    /*private void getCart() {
+    private void getCart() {
         String user1 = manager.getString("_id");
         disposable.add(apiBanHang.getCart(user1)
                 .subscribeOn(Schedulers.io())
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                 ));
 
-    }*/
+    }
     private void getProductHot() {
         disposable.add(apiBanHang.getProduct()
                 .subscribeOn(Schedulers.io())
@@ -243,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, HidenActivity.class));
-                //getCart();
+                //startActivity(new Intent(MainActivity.this, HidenActivity.class));
+                getCart();
             }
         });
         Picasso.get().load(manager.getString("avatar"))
