@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
         backPress = System.currentTimeMillis();
     }
 
-    /*@Override
+    @Override
     protected void onResume() {
         disposable.add(apiBanHang.getCart(manager.getString("_id"))
                 .subscribeOn(Schedulers.io())
@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                 ));
         super.onResume();
-    }*/
+    }
 
     @Override
     protected void onDestroy() {

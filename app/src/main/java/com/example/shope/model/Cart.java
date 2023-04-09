@@ -1,12 +1,20 @@
 package com.example.shope.model;
 
-public class Cart1 {
+public class Cart {
     private String _id, userId;
     Product productId;
     Optioned optionStyle;
+    Store storeId;
     int quantity;
     long price;
-    //List<CartItem> cartItemIds;
+
+    public Store getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Store storeId) {
+        this.storeId = storeId;
+    }
 
     public Product getProductId() {
         return productId;

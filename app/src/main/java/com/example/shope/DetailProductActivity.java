@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.ImageAdapter;
 import com.example.shope.bannerAdapter.OptionAdapter;
+import com.example.shope.bannerAdapter.ProductAdapter;
 import com.example.shope.bannerAdapter.StyleAdapter;
 import com.example.shope.model.Optioned;
 import com.example.shope.model.Product;
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class DetailProductActivity extends AppCompatActivity {
     public ImageView productimg;
     Toolbar toolbar;
     LinearLayout categoryMainStyle, categoryMainSize;
-    RecyclerView listProductimg, optionSize, optionColor;
+    RecyclerView listProductimg, optionSize, optionColor, listProductOfShope;
     TextView nameShope, nameProduct, ranktxt, toggleButton,
             evalutetxt, soldtxt, warehousetxt, pricetxt,
             tangtxt, giamtxt, quantitytxt, descriptxt;
@@ -52,11 +54,13 @@ public class DetailProductActivity extends AppCompatActivity {
     Product product;
     ImageAdapter imageAdapter;
     OptionAdapter adapterColor;
+    ProductAdapter productAdapter;
     StyleAdapter adapterSize;
     List<String> arrsize, arrcolor;
     int kt = 0;
     public String getSize = "A", getStyle = "A", getProductId = "";
     String getStoreId = "";
+
     public int getQuantity = 1;
     ReferenceManager manager;
     CompositeDisposable disposable = new CompositeDisposable();
@@ -73,6 +77,24 @@ public class DetailProductActivity extends AppCompatActivity {
         getStyle();
         addCart();
         getQuantity();
+        getProductOfShop();
+    }
+
+    private void getProductOfShop() {
+        disposable.add(apiBanHang.getProductOfShop(getStoreId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        productModel -> {
+                            if(productModel.isSuccess()){
+                                productAdapter = new ProductAdapter(productModel.getData(), R.layout.item_product, DetailProductActivity.this);
+                                listProductOfShope.setAdapter(productAdapter);
+                            }
+                        },
+                        throwable -> {
+                            Toast.makeText(this, "Error PRO!", Toast.LENGTH_SHORT).show();
+                        }
+                ));
     }
 
     private void getQuantity() {
@@ -166,7 +188,8 @@ public class DetailProductActivity extends AppCompatActivity {
         soldtxt.setText(product.getSold()+" Đã bán");
         ranktxt.setText(product.getRating()+" Xếp hạng");
         descriptxt.setText(Html.fromHtml(product.getDescription()));
-        pricetxt.setText(product.getPrice().get$numberDecimal()+"Đ");
+        DecimalFormat format = new DecimalFormat("###,###,###");
+        pricetxt.setText(format.format(product.getPrice().get$numberDecimal())+"đ");
         nameShope.setText(product.getStoreId().getName());
         getDetailProduct(imgDetailProduct);
         toggleButton.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +229,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private void anhXa() {
         productimg = findViewById(R.id.productimg);
         listProductimg = findViewById(R.id.listProductimg);
+        listProductOfShope = findViewById(R.id.listproductother);
         nameShope = findViewById(R.id.shop);
         nameProduct = findViewById(R.id.name);
         ranktxt = findViewById(R.id.rank);

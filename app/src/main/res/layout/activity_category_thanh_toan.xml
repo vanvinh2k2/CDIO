@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CategoryThanhToanActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Phương thức thanh toán"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/tructiep"
+        android:text="Thanh toán khi nhận hàng"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15ssp"
+        android:background="@drawable/edit_pay"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"/>
+    <ImageView
+        android:id="@+id/paypal"
+        android:src="@drawable/pay"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/edit_pay"
+        android:layout_height="@dimen/_40sdp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirm"
+        android:text="Xác nhận"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textColor="@color/white"
+        android:background="@drawable/edit_button"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

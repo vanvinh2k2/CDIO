@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.CartAdapter;
 import com.example.shope.event.SumEvent;
-import com.example.shope.model.Cart1;
+import com.example.shope.model.Cart;
 import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
@@ -38,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
     public TextView tongtien, cartNull;
     Button mua;
     public CartAdapter cartAdapter;
-    List<Cart1> arrcart;
+    List<Cart> arrcart;
     public long sumMoney = 0;
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
@@ -50,21 +49,22 @@ public class CartActivity extends AppCompatActivity {
         anhXa();
         getTool();
         getCart();
-        //SumProduct();
-        //thanhToan();
+        SumProduct();
+        thanhToan();
     }
 
     private void thanhToan() {
         mua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<Cart1> muaSp = new ArrayList<>();
+                List<Cart> muaSp = new ArrayList<>();
                 muaSp = Constant.listProduct;
                 if(muaSp.size() == 0){
                     Toast.makeText(CartActivity.this, "Vui lòng chọn sản phẩm!", Toast.LENGTH_SHORT).show();
                 }else{
                     //Log.e("er",new Gson().toJson(muaSp).toString());
-                    startActivity(new Intent(CartActivity.this, ThanhToanActivity.class));
+                    Intent intent =new Intent(CartActivity.this, ThanhToanActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -88,7 +88,6 @@ public class CartActivity extends AppCompatActivity {
         SumProduct();
     }
     public void getCart() {
-        Toast.makeText(this, arrcart.size()+"", Toast.LENGTH_SHORT).show();
         arrcart = Constant.allProduct;
         if(arrcart.size()==0){
             cartNull.setVisibility(View.VISIBLE);

@@ -72,5 +72,15 @@
             android:textSize="@dimen/_14ssp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/macdinh"
+            android:text="Mặc định"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_category2"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:padding="@dimen/_4sdp"
+            android:textSize="@dimen/_14ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.AddressAdapter;
+import com.example.shope.bannerAdapter.AddressDefautAdapter;
 import com.example.shope.model.Address;
 import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
@@ -30,7 +31,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView profileimg;
-    TextView nametxt, emailtxt, changePass, address, addAdress, phonetxt, addressNull;
+    TextView nametxt, emailtxt, changePass, address, addAdress, phonetxt, addressNull, defautAddress;
     ReferenceManager manager;
     Toolbar toolbar;
     RecyclerView listAddress;
@@ -46,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
         getToolBar();
         loadProfile();
         process();
-        getListAddress();
     }
 
     public void deleteAddress(String idAddress){
@@ -75,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
                         addressModel -> {
                             if(addressModel.isSuccess()){
                                 arrAddress = addressModel.getData();
+                                Constant.listAddress = arrAddress;
                                 phonetxt.setText("Phone: "+arrAddress.get(0).getPhone());
                                 adapter = new AddressAdapter(R.layout.item_address, ProfileActivity.this, arrAddress);
                                 listAddress.setAdapter(adapter);
@@ -98,6 +99,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddressActivity.class));
+            }
+        });
+        defautAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DefautAddressActivity.class));
             }
         });
     }
@@ -138,7 +145,14 @@ public class ProfileActivity extends AppCompatActivity {
         listAddress = findViewById(R.id.listAddress);
         phonetxt = findViewById(R.id.phone);
         addressNull = findViewById(R.id.addressnull);
+        defautAddress = findViewById(R.id.defautAddress);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
+    }
+
+    @Override
+    protected void onResume() {
+        getListAddress();
+        super.onResume();
     }
 
     @Override

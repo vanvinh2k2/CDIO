@@ -40,20 +40,15 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.OptionHold
     public void onBindViewHolder(@NonNull OptionHolder holder, int position) {
         String option = arrOption.get(position);
         holder.optiontxt.setText(option);
-        /*holder.optiontxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {*/
-                if (position == selectedItemPosition) {
-                    Drawable drawable = context.getDrawable(R.drawable.edit_category2);
-                    holder.optiontxt.setBackground(drawable);
-                    context.getStyle = holder.optiontxt.getText().toString();
-                    //Toast.makeText(context, option+"", Toast.LENGTH_SHORT).show();
-                } else {
-                    Drawable drawable = context.getDrawable(R.drawable.edit_category);
-                    holder.optiontxt.setBackground(drawable);
-                }
-            /*}
-        });*/
+
+        if (position == selectedItemPosition) {
+            Drawable drawable = context.getDrawable(R.drawable.edit_category2);
+            holder.optiontxt.setBackground(drawable);
+            context.getStyle = holder.optiontxt.getText().toString();
+        } else {
+            Drawable drawable = context.getDrawable(R.drawable.edit_category);
+            holder.optiontxt.setBackground(drawable);
+        }
     }
 
     @Override

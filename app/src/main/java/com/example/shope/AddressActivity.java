@@ -140,7 +140,7 @@ public class AddressActivity extends AppCompatActivity {
                                     resultModel -> {
                                         if(resultModel.isSuccess()){
                                             Toast.makeText(AddressActivity.this, resultModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                            finish();
                                         }
                                     },
                                     throwable -> {

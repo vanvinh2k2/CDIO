@@ -2,6 +2,7 @@ package com.example.shope.bannerAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressH
         holder.phone.setText(address.getPhone());
         holder.addressDetail.setText(address.getExactAddress());
         holder.address.setText(address.getWard()+", "+address.getDistrict()+", "+address.getProvince());
+        if(address.isDefaultAddress()) holder.defaultAddress.setVisibility(View.VISIBLE);
+        else holder.defaultAddress.setVisibility(View.INVISIBLE);
         holder.update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +76,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressH
     }
 
     class AddressHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView name, phone, addressDetail, address, update, delete;
+        TextView name, phone, addressDetail, address, update, delete, defaultAddress;
         ItemClickListener clickListener;
         public AddressHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,7 +86,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressH
             addressDetail = itemView.findViewById(R.id.addressDetail);
             update = itemView.findViewById(R.id.update);
             delete = itemView.findViewById(R.id.delete);
-            itemView.setOnClickListener(this);
+            defaultAddress = itemView.findViewById(R.id.macdinh);
         }
 
         public AddressHolder(@NonNull View itemView, ItemClickListener clickListener) {

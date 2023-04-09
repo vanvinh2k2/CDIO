@@ -5,7 +5,7 @@ import java.util.List;
 public class CartModel {
     String message;
     boolean success;
-    List<Cart1> data;
+    List<Cart> data;
 
     public String getMessage() {
         return message;
@@ -23,11 +23,11 @@ public class CartModel {
         this.success = success;
     }
 
-    public List<Cart1> getData() {
+    public List<Cart> getData() {
         return data;
     }
 
-    public void setData(List<Cart1> data) {
+    public void setData(List<Cart> data) {
         this.data = data;
     }
 }

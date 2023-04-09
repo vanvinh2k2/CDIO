@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shope.CartActivity;
 import com.example.shope.R;
 import com.example.shope.event.SumEvent;
-import com.example.shope.model.Cart1;
+import com.example.shope.model.Cart;
 import com.example.shope.onClick.ItemChoiceListener;
 import com.example.shope.utils.Constant;
 import com.squareup.picasso.Picasso;
@@ -28,11 +28,11 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder>{
-    List<Cart1> arrcart;
+    List<Cart> arrcart;
     int layout;
     CartActivity context;
 
-    public CartAdapter(List<Cart1> arrcart, int layout, CartActivity context) {
+    public CartAdapter(List<Cart> arrcart, int layout, CartActivity context) {
         this.arrcart = arrcart;
         this.layout = layout;
         this.context = context;
@@ -48,13 +48,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder>{
     @Override
     public void onBindViewHolder(@NonNull CartHolder holder, int position) {
         int vt = position;
-        Cart1 cart = arrcart.get(position);
+        Cart cart = arrcart.get(position);
         Picasso.get().load(cart.getProductId().getImagePreview())
                 .placeholder(R.drawable.dep2)
                 .into(holder.img);
         holder.name.setText(cart.getProductId().getName());
-        /*if(cart.getOptionStyle().getOption1() == null) holder.category.setVisibility(View.GONE);
-        else holder.category.setText("Loại: "+cart.getOptionStyle().getOption1()+" - "+cart.getOptionStyle().getOption2());*/
+        if(cart.getOptionStyle().getOption1().compareTo("A")==0) holder.category.setVisibility(View.GONE);
+        else holder.category.setText("Loại: "+cart.getOptionStyle().getOption1()+" - "+cart.getOptionStyle().getOption2());
         holder.quantity.setText(cart.getQuantity()+"");
         DecimalFormat format = new DecimalFormat("###,###,###");
         holder.price.setText("Giá: "+format.format(cart.getPrice())+"đ");

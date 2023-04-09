@@ -1,5 +1,6 @@
 package com.example.shope.retrofit;
 
+import com.example.shope.model.AddressDefautlModel;
 import com.example.shope.model.AddressModel;
 import com.example.shope.model.CartModel;
 import com.example.shope.model.CategoryModel;
@@ -113,4 +114,17 @@ public interface ApiBanHang {
 
     @GET("product/list-hot-products")
     Observable<ProductModel> getProductHot();
+
+    @PUT("address/set-default/{user}/{idAddress}/")
+    @FormUrlEncoded
+    Observable<ResultModel> setDefaultAddress(
+            @Path("user") String user,
+            @Path("idAddress") String address,
+            @Field("null") String x
+    );
+
+    @GET("address/address-default/{user}/")
+    Observable<AddressDefautlModel> getDefaultAddress(
+            @Path("user") String user
+    );
 }
