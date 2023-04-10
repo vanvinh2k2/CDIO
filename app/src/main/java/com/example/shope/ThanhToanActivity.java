@@ -59,7 +59,6 @@ public class ThanhToanActivity extends AppCompatActivity {
         anhXa();
         process();
         getToolBar();
-        //getDefautAddress();
         getlistProductOrder();
         getPrice();
     }
@@ -136,16 +135,31 @@ public class ThanhToanActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
         startService(intent);
+
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPayPal();
+                if(Constant.CODE_PAYMENT == 0){
+                    //
+
+
+                    Intent intent = new Intent(getApplicationContext(), OrderStatusActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else
+                    getPayPal();
             }
         });
         addressTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ThanhToanActivity.this, ProfileActivity.class));
+            }
+        });
+        thanhToanTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ThanhToanActivity.this, CategoryThanhToanActivity.class));
             }
         });
     }
@@ -188,9 +202,9 @@ public class ThanhToanActivity extends AppCompatActivity {
                     String pamentdetail = paymentConfirmation.toJSONObject().toString();
                     JSONObject jsonObject = new JSONObject(pamentdetail);
                     Toast.makeText(this, jsonObject.toString()+"", Toast.LENGTH_SHORT).show();
-                    Log.e("er", jsonObject.toString());
-                    startActivity(new Intent(this, CategoryThanhToanActivity.class));
-
+                    Intent intent = new Intent(getApplicationContext(), OrderStatusActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 } catch (JSONException e) {
                     Toast.makeText(this, e.getLocalizedMessage()+"", Toast.LENGTH_SHORT).show();
                 }
@@ -199,13 +213,18 @@ public class ThanhToanActivity extends AppCompatActivity {
 
             }
         } else if (requestCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onResume() {
         getDefautAddress();
+        if(Constant.CODE_PAYMENT == 1){
+            cachThanhToan.setText("Thanh toán bằng PayPal");
+        }else{
+            cachThanhToan.setText("Thanh toán khi nhận hàng");
+        }
         super.onResume();
     }
 

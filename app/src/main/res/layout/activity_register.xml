@@ -104,7 +104,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/create"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_button"
             android:text="Tạo tài khoản"
@@ -128,7 +128,7 @@
                 android:id="@+id/textlogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Đang nhập"
+                android:text=" Đăng nhập"
                 android:textColor="#4343F8"
                 android:textSize="17dp" />
         </LinearLayout>

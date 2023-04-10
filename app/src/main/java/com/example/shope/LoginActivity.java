@@ -1,11 +1,17 @@
 package com.example.shope;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,12 +25,20 @@ import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
     TextView register;
     EditText emailedt, passwordedt;
     Button loginbtn;
@@ -33,12 +47,35 @@ public class LoginActivity extends AppCompatActivity {
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
     ReferenceManager manager;
+    LoginButton loginButton;
+    CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         anhXa();
         process();
+        facebook();
+    }
+
+    private void facebook() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.example.loginfb",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+        }
+        catch (NoSuchAlgorithmException e) {
+        }
+        loginButton = findViewById(R.id.login_button);
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, this);
     }
 
     private void process() {
@@ -101,7 +138,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             },
                             throwable -> {
-                                text("This user is not find!");
+                                text(throwable.getMessage());
+                                Log.e("er",throwable.getMessage());
                             }
                     ));
         }
@@ -137,5 +175,26 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         disposable.clear();
         super.onDestroy();
+    }
+
+    @Override
+    public void onSuccess(LoginResult loginResult) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+
+    @Override
+    public void onError(FacebookException error) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

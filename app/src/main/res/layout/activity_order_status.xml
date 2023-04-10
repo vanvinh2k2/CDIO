@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderStatusActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Đơn hàng"
+        app:titleTextColor="@color/white"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="ExtraText,MissingConstraints">
+        <ImageView
+            android:src="@drawable/exclamation"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"/>
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang chờ thanh toán"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Cùng Click Shop bảo vệ quyền lợi của bạn - chỉ nhận hàng và thanh toán khi đơn mua ở trạng thái Đang giao hàng"
+            tools:ignore="MissingConstraints" />
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/home"
+                android:text="Trang chủ"
+                android:textSize="@dimen/_12ssp"
+                android:background="@drawable/edit_img"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/order"
+                android:text="Đơn mua"
+                android:textSize="@dimen/_12ssp"
+                android:background="@drawable/edit_img"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
