@@ -8,7 +8,8 @@ public class Product implements Serializable {
     private List<String> listImages;
     private Store storeId;
     private List<Option> optionStyles;
-    private long totalQuantity, sold, rating;
+    private long totalQuantity, sold;
+    private float rating;
     private Price price, minPrice, maxPrice;
     private String _id, name, description, imagePreview, status;
 
@@ -92,11 +93,11 @@ public class Product implements Serializable {
         this.sold = sold;
     }
 
-    public long getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(long rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

@@ -33,7 +33,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class CartActivity extends AppCompatActivity {
     Toolbar toolbar;
-    RecyclerView listCart;
+    public RecyclerView listCart;
     public TextView tongtien, cartNull;
     Button mua;
     public CartAdapter cartAdapter;
@@ -91,9 +91,11 @@ public class CartActivity extends AppCompatActivity {
         arrcart = Constant.allProduct;
         if(arrcart.size()==0){
             cartNull.setVisibility(View.VISIBLE);
+            listCart.setVisibility(View.INVISIBLE);
         }
         else {
             cartNull.setVisibility(View.GONE);
+            listCart.setVisibility(View.VISIBLE);
             cartAdapter = new CartAdapter(arrcart, R.layout.item_cart, CartActivity.this);
             listCart.setAdapter(cartAdapter);
         }

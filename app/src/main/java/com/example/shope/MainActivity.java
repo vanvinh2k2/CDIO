@@ -36,6 +36,7 @@ import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
+import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(position == 4){
                     manager.clear();
+                    LoginManager.getInstance().logOut();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             }

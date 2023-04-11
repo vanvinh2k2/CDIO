@@ -112,11 +112,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng kí ngay"
-                android:textColor="#474646"
+                android:textColor="#2196F3"
                 android:textSize="@dimen/_14ssp" />
         </LinearLayout>
         <TextView
-            android:text="Hoặc"
+            android:text="hoặc"
             android:textSize="@dimen/_13ssp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_gravity="center"
@@ -133,6 +133,27 @@
                 android:layout_width="wrap_content"
                 android:textSize="@dimen/_13ssp"
                 android:backgroundTint="#4267B2"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:background="@drawable/edit_google"
+            android:layout_height="@dimen/_35sdp">
+            <TextView
+                android:id="@+id/login_google"
+                android:layout_width="wrap_content"
+                android:text="Tiếp tục với Google"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/_5sdp"
+                android:drawableStart="@drawable/google_20"
+                android:gravity="center"
+                android:textColor="#807F7F"
+                android:textSize="@dimen/_13ssp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:padding="@dimen/_5sdp" />

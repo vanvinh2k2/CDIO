@@ -339,7 +339,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addcart"
                 android:layout_width="@dimen/_150sdp"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_button"
                 android:text="Thêm vào giỏ hàng"

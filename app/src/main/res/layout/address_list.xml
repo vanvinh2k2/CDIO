@@ -18,6 +18,7 @@
             android:id="@+id/addresslist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:layout_weight="1"
             android:gravity="left|center"
             android:paddingLeft="@dimen/_10sdp"

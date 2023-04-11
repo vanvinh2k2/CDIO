@@ -52,7 +52,6 @@ public class AddressActivity extends AppCompatActivity {
         getTool();
         getProvince();
         addAddress();
-        //getWard();
     }
 
     public void getWard(String id) {
@@ -139,7 +138,7 @@ public class AddressActivity extends AppCompatActivity {
                             .subscribe(
                                     resultModel -> {
                                         if(resultModel.isSuccess()){
-                                            Toast.makeText(AddressActivity.this, resultModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddressActivity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
                                     },

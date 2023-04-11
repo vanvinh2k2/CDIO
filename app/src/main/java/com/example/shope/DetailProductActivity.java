@@ -131,7 +131,7 @@ public class DetailProductActivity extends AppCompatActivity {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 resultModel -> {
-                                    Snackbar.make(v, resultModel.getMessage(),2000)
+                                    Snackbar.make(v, "Đã thêm vào giỏ hàng",2000)
                                             .setActionTextColor(Color.GREEN)
                                             .show();
                                 },

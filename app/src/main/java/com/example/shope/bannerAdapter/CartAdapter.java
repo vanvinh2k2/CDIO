@@ -95,7 +95,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartHolder>{
                             }
                             context.cartAdapter.notifyDataSetChanged();
                             EventBus.getDefault().postSticky(new SumEvent());
-                            if(Constant.allProduct.size() == 0) context.cartNull.setVisibility(View.VISIBLE);
+                            if(Constant.allProduct.size() == 0) {
+                                context.cartNull.setVisibility(View.VISIBLE);
+                                context.listCart.setVisibility(View.INVISIBLE);
+                            }
                         }
                     });
                     builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {

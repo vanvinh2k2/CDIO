@@ -106,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="20dp"
+            android:textSize="@dimen/_13ssp"
             android:background="@drawable/edit_button"
             android:text="Tạo tài khoản"
             android:textColor="@color/white" />
@@ -122,15 +123,58 @@
                 android:layout_height="wrap_content"
                 android:text="Bạn đã có tài khoản?"
                 android:textColor="#474646"
-                android:textSize="16dp" />
+                android:textSize="@dimen/_14ssp" />
 
             <TextView
                 android:id="@+id/textlogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" Đăng nhập"
-                android:textColor="#4343F8"
-                android:textSize="17dp" />
+                android:textColor="#2196F3"
+                android:textSize="@dimen/_14ssp" />
+        </LinearLayout>
+        <TextView
+            android:text="hoặc"
+            android:textSize="@dimen/_13ssp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="@drawable/edit_facebook"
+            android:layout_height="@dimen/_35sdp">
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:backgroundTint="#4267B2"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            android:background="@drawable/edit_google"
+            android:layout_height="@dimen/_35sdp">
+            <TextView
+                android:id="@+id/login_google"
+                android:layout_width="wrap_content"
+                android:text="Tiếp tục với Google"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/_5sdp"
+                android:drawableStart="@drawable/google_20"
+                android:gravity="center"
+                android:textColor="#807F7F"
+                android:textSize="@dimen/_13ssp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5sdp" />
         </LinearLayout>
     </LinearLayout>
 
