@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#f1f5f9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
@@ -29,6 +30,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#257E76"
             android:layout_marginTop="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -47,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textColor="#257E76"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="Mật khẩu: "
@@ -112,7 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng kí ngay"
-                android:textColor="#2196F3"
+                android:textColor="@color/black"
+                android:textStyle="normal"
                 android:textSize="@dimen/_14ssp" />
         </LinearLayout>
         <TextView
@@ -123,24 +127,10 @@
             android:layout_width="wrap_content"
             android:layout_marginBottom="@dimen/_2sdp"
             android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:background="@drawable/edit_facebook"
-            android:layout_height="@dimen/_35sdp">
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:textSize="@dimen/_13ssp"
-                android:backgroundTint="#4267B2"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:padding="@dimen/_5sdp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:gravity="center"
             android:background="@drawable/edit_google"
             android:layout_height="@dimen/_35sdp">
@@ -154,6 +144,22 @@
                 android:gravity="center"
                 android:textColor="#807F7F"
                 android:textSize="@dimen/_13ssp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5sdp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/edit_facebook"
+            android:layout_height="@dimen/_35sdp">
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/_13ssp"
+                android:backgroundTint="#4267B2"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:padding="@dimen/_5sdp" />

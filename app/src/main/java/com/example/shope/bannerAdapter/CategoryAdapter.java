@@ -1,6 +1,8 @@
 package com.example.shope.bannerAdapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shope.CategoryProductActivity;
 import com.example.shope.R;
 import com.example.shope.model.Category;
 import com.example.shope.onClick.ItemClickListener;
@@ -41,10 +44,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         Category category = arrcategory.get(position);
         Picasso.get().load(category.getImage()).placeholder(R.drawable.dep2).into(holder.image);
         holder.title.setText(category.getName());
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        holder.setClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(context, category.getName()+"", Toast.LENGTH_SHORT).show();
+            public void setOnItemClick(View view, int pos, boolean isLongClick) {
+                ProgressDialog dialog = new ProgressDialog(context);
+                dialog.setMessage("Đang tải, vui lòng chờ đợi...");
+                dialog.show();
+                Intent intent = new Intent(context, CategoryProductActivity.class);
+                intent.putExtra("data", category.get_id());
+                context.startActivity(intent);
             }
         });
     }
@@ -65,8 +73,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             itemView.setOnClickListener(this);
         }
 
-        public CategoryHolder(@NonNull View itemView, ItemClickListener clickListener) {
-            super(itemView);
+        public void setClickListener(ItemClickListener clickListener) {
             this.clickListener = clickListener;
         }
 

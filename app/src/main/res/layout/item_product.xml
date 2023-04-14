@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@drawable/edit_frame"
-    android:layout_marginBottom="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_5sdp"
     android:gravity="center"
-    android:layout_marginRight="@dimen/_2sdp"
-    android:layout_marginLeft="@dimen/_2sdp"
+    android:layout_marginRight="@dimen/_3sdp"
+    android:layout_marginLeft="@dimen/_3sdp"
     android:padding="@dimen/_2sdp"
     android:layout_height="wrap_content">
     <FrameLayout
@@ -57,7 +57,8 @@
         android:textSize="@dimen/_12ssp"
         android:textColor="#6E6E6E"
         android:gravity="fill"
-        android:text="ngo van hoa  phan viet trong canh ngo van thanh"
+        android:maxLines="2"
+        android:text=""
         android:layout_width="match_parent"
         android:paddingLeft="@dimen/_5sdp"
         android:paddingRight="@dimen/_5sdp"

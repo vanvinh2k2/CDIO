@@ -129,11 +129,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getMenuCatagory() {
-        arrMenu.add(new MenuCategory("https://img.icons8.com/color/256/user.png","My acount"));
-        arrMenu.add(new MenuCategory("https://img.icons8.com/color/1x/appointment-reminders--v1.png","Notification"));
-        arrMenu.add(new MenuCategory("https://img.icons8.com/color/256/purchase-order.png","Purchase order"));
-        arrMenu.add(new MenuCategory("https://img.icons8.com/color/256/headset.png","Help"));
-        arrMenu.add(new MenuCategory("https://img.icons8.com/color/256/logout-rounded-left.png","Logout"));
+        arrMenu.add(new MenuCategory(R.drawable.baseline_person,"Hồ sơ"));
+        arrMenu.add(new MenuCategory(R.drawable.baseline_notifications,"Thông báo"));
+        arrMenu.add(new MenuCategory(R.drawable.baseline_format_list,"Đơn hàng"));
+        //arrMenu.add(new MenuCategory("https://img.icons8.com/color/256/headset.png","Help"));
+        arrMenu.add(new MenuCategory(R.drawable.baseline_logout,"Đăng xuất"));
         menuCategoryAdapter = new MenuCategoryAdapter(arrMenu, R.layout.item_category, MainActivity.this);
         listMenu.setAdapter(menuCategoryAdapter);
 
@@ -147,12 +147,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
                 }
                 if(position == 2){
-
+                    startActivity(new Intent(getApplicationContext(), OrderActivity.class));
                 }
-                if(position == 3){
+                /*if(position == 3){
                     startActivity(new Intent(getApplicationContext(), HelpActivity.class));
-                }
-                if(position == 4){
+                }*/
+                if(position == 3){
                     manager.clear();
                     LoginManager.getInstance().logOut();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));

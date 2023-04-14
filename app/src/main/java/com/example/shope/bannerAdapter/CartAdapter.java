@@ -1,6 +1,7 @@
 package com.example.shope.bannerAdapter;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;

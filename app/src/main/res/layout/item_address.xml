@@ -76,7 +76,7 @@
             android:id="@+id/macdinh"
             android:text="Mặc định"
             android:textColor="@color/black"
-            android:background="@drawable/edit_category2"
+            android:background="@drawable/edit_category3"
             android:layout_marginLeft="@dimen/_10sdp"
             android:padding="@dimen/_4sdp"
             android:textSize="@dimen/_14ssp"

@@ -4,7 +4,9 @@ import com.example.shope.model.AddressDefautlModel;
 import com.example.shope.model.AddressModel;
 import com.example.shope.model.CartModel;
 import com.example.shope.model.CategoryModel;
+import com.example.shope.model.DeliveryModel;
 import com.example.shope.model.DistrictModel;
+import com.example.shope.model.OrderModel;
 import com.example.shope.model.ProductModel;
 import com.example.shope.model.ProvinceModel;
 import com.example.shope.model.ResultModel;
@@ -125,6 +127,21 @@ public interface ApiBanHang {
 
     @GET("address/address-default/{user}/")
     Observable<AddressDefautlModel> getDefaultAddress(
+            @Path("user") String user
+    );
+
+    @GET("delivery/list-deliveries")
+    Observable<DeliveryModel> getDelivery();
+
+    @POST("order/create-order/{user}/")
+    @FormUrlEncoded
+    Observable<ResultModel> addOrder(
+            @Path("user") String user,
+            @Field("carts") String carts
+    );
+
+    @GET("order/get-orders-status/by-user/{user}/")
+    Observable<OrderModel> getOrder(
             @Path("user") String user
     );
 }

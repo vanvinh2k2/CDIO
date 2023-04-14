@@ -94,7 +94,7 @@
                         android:id="@+id/quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/edit_category"
+                        android:background="@drawable/edit_category3"
                         android:paddingLeft="@dimen/_15sdp"
                         android:paddingTop="@dimen/_4sdp"
                         android:paddingRight="@dimen/_15sdp"

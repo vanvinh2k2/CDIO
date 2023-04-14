@@ -31,6 +31,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,6 +46,7 @@ import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -125,23 +127,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         startActivityForResult(signIntent, Constant.CODE_GOOGLE);
     }
     private void facebook() {
-        /*try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.loginfb",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
-        }
-        catch (NoSuchAlgorithmException e) {
-        }*/
         loginButton = findViewById(R.id.login_button);
         loginButton.setLoginText("Tiếp tục với Facebook");
         loginButton.setLogoutText("Tiếp tục với Facebook");
+        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, this);
     }
@@ -194,6 +183,25 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
     }
 
+    private void register(String name1, String email1, String password1) {
+        disposable.add(apiBanHang.registerUser(name1, email1, password1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        resultModel -> {
+                            if(resultModel.isSuccess()){
+                                text(resultModel.getMessage());
+                            }else{
+                                LoginManager.getInstance().logOut();
+                                //text("Tài khoản đã tồn tại!");
+                            }
+                        },
+                        throwable -> {
+                            text("Error");
+                        }
+                ));
+    }
+
     boolean checkInput(){
         if(emailedt.getText().toString().trim().isEmpty()){
             text("Vui lòng nhập Email!");
@@ -216,9 +224,11 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.e("kq", response.getJSONObject().toString());
                         try {
+                            String name1 = object.getString("name");
                             String email1 = object.getString("email");
                             String password1 = object.getString("id");
                             //truyen data vao
+                            register(name1, email1, password1);
                             checkAccount(email1, password1);
 
                         } catch (JSONException e) {
@@ -264,7 +274,9 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                 if(acct!=null){
                     String person = acct.getDisplayName();
                     String email = acct.getEmail();
-                    checkAccount(email,"google");
+                    String password = acct.getId();
+                    register(person, email, password);
+                    checkAccount(email, password);
                 }
             } catch (ApiException e) {
                 throw new RuntimeException(e);

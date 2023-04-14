@@ -45,25 +45,25 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class RegisterActivity extends AppCompatActivity implements FacebookCallback<LoginResult> {
-    TextView login, regoogle;
+public class RegisterActivity extends AppCompatActivity /*implements FacebookCallback<LoginResult>*/ {
+    TextView login;
     CompositeDisposable disposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
     CheckBox show;
     ImageView eyeimg;
     EditText nameedt, emailedt, passwordedt;
     Button createbtn;
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+    //GoogleSignInOptions gso;
+    //GoogleSignInClient gsc;
+    //CallbackManager callbackManager;
+    //LoginButton loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         anhXa();
-        facebook();
-        google();
+        //facebook();
+        //google();
         process();
     }
 
@@ -96,14 +96,14 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
         });
     }
 
-    private void facebook() {
+    /*private void facebook() {
         loginButton = findViewById(R.id.login_button);
         loginButton.setLoginText("Tiếp tục với Facebook");
         loginButton.setLogoutText("Tiếp tục với Facebook");
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, this);
-    }
+    }*/
     private void registerAccount() {
         String name1 = nameedt.getText().toString().trim();
         String email1 = emailedt.getText().toString().trim();
@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
 
     }
 
-    private void google() {
+    /*private void google() {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         regoogle.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
     private void signIn() {
         Intent signIntent = gsc.getSignInIntent();
         startActivityForResult(signIntent, Constant.CODE_GOOGLE);
-    }
+    }*/
     private void register(String name1, String email1, String password1) {
         disposable.add(apiBanHang.registerUser(name1, email1, password1)
                 .subscribeOn(Schedulers.io())
@@ -157,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
         emailedt = findViewById(R.id.email);
         createbtn = findViewById(R.id.create);
         passwordedt = findViewById(R.id.password);
-        regoogle = findViewById(R.id.login_google);
+        //regoogle = findViewById(R.id.login_google);
         eyeimg = findViewById(R.id.eyeimg);
         show = findViewById(R.id.showPassword);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
@@ -185,7 +185,11 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
         }else return true;
     }
 
-    private void result() {
+    void text(String v){
+        Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
+    }
+
+    /*private void result() {
         GraphRequest graphRequest = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -206,9 +210,6 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
         parame.putString("fields", "id,name,first_name,email");
         graphRequest.setParameters(parame);
         graphRequest.executeAsync();
-    }
-    void text(String v){
-        Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -245,5 +246,5 @@ public class RegisterActivity extends AppCompatActivity implements FacebookCallb
             }
         }
 
-    }
+    }*/
 }

@@ -1,19 +1,19 @@
 package com.example.shope.model;
 
 public class MenuCategory {
-    private String image;
+    private int image;
     private String name;
 
-    public MenuCategory(String image, String name) {
+    public MenuCategory(int image, String name) {
         this.image = image;
         this.name = name;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 

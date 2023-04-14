@@ -63,10 +63,7 @@ public class MenuCategoryAdapter extends BaseAdapter {
         }
 
         MenuCategory menuCategory = arrmenu.get(position);
-        Picasso.get()
-                .load(menuCategory.getImage())
-                .placeholder(R.drawable.user)
-                .into(holder.image);
+        holder.image.setImageResource(menuCategory.getImage());
         holder.title.setText(menuCategory.getName());
 
         return convertView;

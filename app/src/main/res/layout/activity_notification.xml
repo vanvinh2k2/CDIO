@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         app:title="Thông báo"
         app:titleTextColor="@color/white"
-        android:background="@color/black"
+        android:background="#64748b"
         android:layout_height="?attr/actionBarSize"
         tools:ignore="MissingConstraints"/>
     <androidx.recyclerview.widget.RecyclerView

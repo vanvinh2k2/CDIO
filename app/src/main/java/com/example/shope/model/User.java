@@ -1,9 +1,19 @@
 package com.example.shope.model;
 
-public class User {
-    private String _id;
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private String _id, displayName;
     private String username, email, filename, avatar, isBlocked, slug;
     private int __v;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
     public String get_id() {
         return _id;

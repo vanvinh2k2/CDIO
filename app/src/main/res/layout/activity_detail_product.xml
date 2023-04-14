@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         app:title="Chi tiết sản phẩm"
         app:titleTextColor="@color/white"
-        android:background="@color/black"
+        android:background="#64748b"
         android:layout_height="?attr/actionBarSize"
         tools:ignore="MissingConstraints"/>
 
@@ -50,7 +50,7 @@
                 android:id="@+id/listProductimg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#EDEDED"
+                android:background="#f1f5f9"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -313,7 +313,7 @@
                     android:id="@+id/quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_category"
+                    android:background="@drawable/edit_category3"
                     android:paddingLeft="@dimen/_20sdp"
                     android:paddingTop="@dimen/_4sdp"
                     android:paddingRight="@dimen/_20sdp"
@@ -349,7 +349,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="PHẦN MÔ TẢ SẢN PHẨM"
+                android:text="Phần mô tả sản phẩm"
+
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp" />
 
@@ -376,6 +377,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_2sdp"
+                android:textStyle="bold"
                 android:text="Các sản phẩm khác của shop"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp" />
@@ -385,6 +387,7 @@
                 android:layout_marginRight="5dp"
                 app:spanCount="2"
                 android:layout_gravity="center"
+                android:background="#f1f5f9"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 android:layout_marginTop="10dp"

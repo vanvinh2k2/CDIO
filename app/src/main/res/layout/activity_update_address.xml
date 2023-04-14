@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="#f1f5f9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UpdateAddressActivity">
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         app:title="Cập nhập địa chỉ"
         app:titleTextColor="@color/white"
-        android:background="@color/black"
+        android:background="#64748b"
         android:layout_height="?attr/actionBarSize"
         tools:ignore="MissingConstraints"/>
     <ScrollView
@@ -28,6 +29,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Tên hiển thị: "
                 android:textSize="18dp" />
 
@@ -44,6 +46,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Số điện thoại: "
                 android:textSize="18dp" />
 
@@ -61,6 +64,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Tỉnh/Thành phố: "
                 android:textSize="18dp" />
 
@@ -76,6 +80,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Quận/Huyện: "
                 android:textSize="18dp" />
 
@@ -90,6 +95,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Xã/Phường: "
                 android:textSize="18dp" />
 
@@ -105,6 +111,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:textColor="#257E76"
                 android:text="Đại chỉ cụ thể: "
                 android:textSize="18dp" />
 

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +17,14 @@ import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.ProductOrderAdapter;
 import com.example.shope.model.Address;
+import com.example.shope.model.Delivery;
+import com.example.shope.model.SetOrder;
 import com.example.shope.retrofit.ApiBanHang;
 import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
+import com.facebook.login.LoginManager;
+import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -31,6 +36,8 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -50,7 +57,11 @@ public class ThanhToanActivity extends AppCompatActivity {
     CompositeDisposable disposable = new CompositeDisposable();
     static final int CODE = 123;
     long pricePay = 0;
+    Delivery delivery;
     public static PayPalConfiguration payPalConfiguration;
+    List<SetOrder> orderList;
+    String addressId;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,20 @@ public class ThanhToanActivity extends AppCompatActivity {
         getToolBar();
         getlistProductOrder();
         getPrice();
+    }
+
+    private void getDelivery() {
+        disposable.add(apiBanHang.getDelivery()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        deliveryModel -> {
+                            delivery = deliveryModel.getData().get(0);
+                        },
+                        throwable -> {
+                            Log.e("er","Error delivery!");
+                        }
+                ));
     }
 
     private void getToolBar() {
@@ -85,9 +110,9 @@ public class ThanhToanActivity extends AppCompatActivity {
         }
         DecimalFormat format = new DecimalFormat("###,###,###");
         priceProduct.setText(format.format(price)+"đ");
-        priceShip.setText(format.format(40000)+"đ");
-        priceSum.setText(format.format(price+40000)+"đ");
-        pricePay = price+40000;
+        priceShip.setText(format.format(25000*Constant.listProduct.size())+"đ");
+        priceSum.setText(format.format(price+(25000*Constant.listProduct.size()))+"đ");
+        pricePay = price+(25000*Constant.listProduct.size());
         priceThanhToan.setText("Tổng thanh toán: "+format.format(pricePay)+"đ");
     }
 
@@ -105,6 +130,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                         addressDefautlModel -> {
                             if(addressDefautlModel.isSuccess()){
                                 Address address1 = addressDefautlModel.getData();
+                                addressId = address1.get_id();
                                 phone.setVisibility(View.VISIBLE);
                                 addressDetail.setVisibility(View.VISIBLE);
                                 address.setVisibility(View.VISIBLE);
@@ -135,19 +161,30 @@ public class ThanhToanActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
         startService(intent);
-
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog = new ProgressDialog(ThanhToanActivity.this);
+                progressDialog.setMessage("Đang tải, vui lòng chờ đợi...");
+                progressDialog.show();
                 if(Constant.CODE_PAYMENT == 0){
-                    //
-
-
+                    for(int i=0; i<Constant.listProduct.size(); i++){
+                        SetOrder setOrder = new SetOrder(Constant.listProduct.get(i).getStoreId().get_id(),
+                                delivery.get_id(), addressId,"COD",
+                                Constant.listProduct.get(i).getProductId().get_id(),
+                                25000,
+                                Constant.listProduct.get(i).getPrice()*Constant.listProduct.get(i).getQuantity(),
+                                Constant.listProduct.get(i).getQuantity(),
+                                Constant.listProduct.get(i).getOptionStyle());
+                        orderList.add(setOrder);
+                    }
+                    getOrder(new Gson().toJson(orderList));
                     Intent intent = new Intent(getApplicationContext(), OrderStatusActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                } else
+                } else {
                     getPayPal();
+                }
             }
         });
         addressTitle.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +208,22 @@ public class ThanhToanActivity extends AppCompatActivity {
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
         startActivityForResult(intent,CODE);
     }
+
+    private void getOrder(String carts){
+        String idUser = manager.getString("_id");
+        disposable.add(apiBanHang.addOrder(idUser, carts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        resultModel -> {
+                            Toast.makeText(this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
+                        },
+                        throwable -> {
+                            Log.e("er","Error order!");
+                        }
+                ));
+    }
+
     private void anhXa() {
         addressTitle = findViewById(R.id.addresstitle);
         name = findViewById(R.id.name);
@@ -187,6 +240,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         listProduct = findViewById(R.id.listProduct);
         confirm = findViewById(R.id.dathang);
         view = findViewById(R.id.view);
+        orderList = new ArrayList<>();
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
         manager = new ReferenceManager(ThanhToanActivity.this);
     }
@@ -197,11 +251,22 @@ public class ThanhToanActivity extends AppCompatActivity {
         if(requestCode==CODE && resultCode==RESULT_OK){
             PaymentConfirmation paymentConfirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
             if(paymentConfirmation != null){
-
                 try {
                     String pamentdetail = paymentConfirmation.toJSONObject().toString();
                     JSONObject jsonObject = new JSONObject(pamentdetail);
-                    Toast.makeText(this, jsonObject.toString()+"", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, jsonObject.toString()+"", Toast.LENGTH_SHORT).show();
+                    for(int i=0; i<Constant.listProduct.size(); i++){
+                        SetOrder setOrder = new SetOrder(Constant.listProduct.get(i).getStoreId().get_id(),
+                                delivery.get_id(), addressId,"PayPal",
+                                Constant.listProduct.get(i).getProductId().get_id(),
+                                25000,
+                                Constant.listProduct.get(i).getPrice() * Constant.listProduct.get(i).getQuantity(),
+                                Constant.listProduct.get(i).getQuantity(),
+                                Constant.listProduct.get(i).getOptionStyle());
+                        orderList.add(setOrder);
+                    }
+                    //Toast.makeText(this, Constant.listProduct.size()+" * "+ new Gson().toJson(orderList), Toast.LENGTH_SHORT).show();
+                    getOrder(new Gson().toJson(orderList));
                     Intent intent = new Intent(getApplicationContext(), OrderStatusActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -220,6 +285,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         getDefautAddress();
+        getDelivery();
         if(Constant.CODE_PAYMENT == 1){
             cachThanhToan.setText("Thanh toán bằng PayPal");
         }else{
