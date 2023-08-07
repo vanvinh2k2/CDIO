@@ -1,6 +1,8 @@
 package com.example.shope.model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private String image;
     private String name, _id;
 

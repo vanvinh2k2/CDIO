@@ -67,8 +67,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             .subscribe(
                                     resultModel -> {
                                         if(resultModel.isSuccess()){
-                                            Toast.makeText(ChangePasswordActivity.this, resultModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(ChangePasswordActivity.this, ProfileActivity.class));
+                                            Toast.makeText(ChangePasswordActivity.this, "Đã thay đổi mật khẩu", Toast.LENGTH_SHORT).show();
+                                            /*Intent intent = new Intent(ChangePasswordActivity.this, ProfileActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);*/
+                                            finish();
                                         }
                                     },
                                     throwable -> {

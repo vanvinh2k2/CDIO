@@ -45,7 +45,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ThanhToanActivity extends AppCompatActivity {
     TextView addressTitle, name, phone, addressDetail,
-            address, thanhToanTitle, cachThanhToan,
+            address, thanhToanTitle, cachThanhToan, banDo,
             priceProduct, priceShip, priceSum, priceThanhToan;
     View view;
     RecyclerView listProduct;
@@ -137,12 +137,14 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 view.setVisibility(View.VISIBLE);
                                 name.setText(address1.getDisplayName());
                                 phone.setText(address1.getPhone());
+                                banDo.setVisibility(View.VISIBLE);
                                 addressDetail.setText(address1.getExactAddress());
                                 address.setText(address1.getWard()+", "+address1.getDistrict()+", "+address1.getProvince());
                             }
                             else{
                                 name.setText("Chưa có địa chỉ giao hàng");
                                 phone.setVisibility(View.GONE);
+                                banDo.setVisibility(View.GONE);
                                 addressDetail.setVisibility(View.GONE);
                                 address.setVisibility(View.GONE);
                                 view.setVisibility(View.GONE);
@@ -199,6 +201,15 @@ public class ThanhToanActivity extends AppCompatActivity {
                 startActivity(new Intent(ThanhToanActivity.this, CategoryThanhToanActivity.class));
             }
         });
+        banDo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ThanhToanActivity.this, MapActivity.class);
+                String searchAddress = addressDetail.getText().toString().trim()+", "+address.getText().toString().trim();
+                intent.putExtra("search", searchAddress);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getPayPal(){
@@ -216,7 +227,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         resultModel -> {
-                            Toast.makeText(this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
                         },
                         throwable -> {
                             Log.e("er","Error order!");
@@ -241,6 +252,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         confirm = findViewById(R.id.dathang);
         view = findViewById(R.id.view);
         orderList = new ArrayList<>();
+        banDo = findViewById(R.id.banDo);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
         manager = new ReferenceManager(ThanhToanActivity.this);
     }
@@ -254,7 +266,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                 try {
                     String pamentdetail = paymentConfirmation.toJSONObject().toString();
                     JSONObject jsonObject = new JSONObject(pamentdetail);
-                    //Toast.makeText(this, jsonObject.toString()+"", Toast.LENGTH_SHORT).show();
+                    Log.e("kq_paypal", jsonObject.toString()+"");
                     for(int i=0; i<Constant.listProduct.size(); i++){
                         SetOrder setOrder = new SetOrder(Constant.listProduct.get(i).getStoreId().get_id(),
                                 delivery.get_id(), addressId,"PayPal",
@@ -279,7 +291,52 @@ public class ThanhToanActivity extends AppCompatActivity {
             }
         } else if (requestCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             Toast.makeText(this, "Invalid!", Toast.LENGTH_SHORT).show();
-        }
+        }/*
+        if(requestCode==CODE && resultCode==RESULT_OK){
+            PaymentConfirmation paymentConfirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+            if(paymentConfirmation != null){
+                try {
+                    // Get payment details as a string
+                    String paymentDetail = paymentConfirmation.toJSONObject().toString();
+
+                    // Extract payment information from JSON object
+                    JSONObject jsonObject = new JSONObject(paymentDetail);
+                    JSONObject response = jsonObject.getJSONObject("response");
+                    String paymentId = response.getString("id");
+                    String state = response.getString("state");
+                    String transactionId = response.getJSONArray("transactions")
+                            .getJSONObject(0).getString("related_resources")
+                            .split(":")[2].replace("\"", ""); // Extract transaction ID from JSON string
+                    JSONObject amount = response.getJSONArray("transactions").getJSONObject(0).getJSONObject("amount");
+                    String currency = amount.getString("currency");
+                    Double total = amount.getDouble("total"); // Total amount paid in the transaction
+                    JSONObject payer = jsonObject.getJSONObject("payer");
+                    String payerEmail = payer.getString("email");   // Email of the person who paid
+                    JSONObject recipient = response.getJSONArray("transactions")
+                            .getJSONObject(0).getJSONObject("payee");
+                    String recipientEmail = recipient.getString("email");  // Email of the person who received the payment
+
+                    // Print payment information
+                    Log.d("TAG", "Payment details: \n" +
+                            "Payment ID: " + paymentId + "\n" +
+                            "Transaction ID: " + transactionId + "\n" +
+                            "Status: " + state + "\n" +
+                            "Amount: " + currency + " " + total + "\n" +
+                            "Payer Email: " + payerEmail + "\n" +
+                            "Recipient Email: " + recipientEmail + "\n");
+
+                    // Further processing of payment information
+                    //ex. save to database, send email to recipient, etc.
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            Toast.makeText(this, "Invalid!", Toast.LENGTH_SHORT).show();
+        }*/
     }
 
     @Override

@@ -53,17 +53,13 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
     ImageView eyeimg;
     EditText nameedt, emailedt, passwordedt;
     Button createbtn;
-    //GoogleSignInOptions gso;
-    //GoogleSignInClient gsc;
-    //CallbackManager callbackManager;
-    //LoginButton loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         anhXa();
-        //facebook();
-        //google();
+
         process();
     }
 
@@ -96,14 +92,6 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
         });
     }
 
-    /*private void facebook() {
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setLoginText("Tiếp tục với Facebook");
-        loginButton.setLogoutText("Tiếp tục với Facebook");
-        loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
-        callbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(callbackManager, this);
-    }*/
     private void registerAccount() {
         String name1 = nameedt.getText().toString().trim();
         String email1 = emailedt.getText().toString().trim();
@@ -114,21 +102,6 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
 
     }
 
-    /*private void google() {
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this, gso);
-        regoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
-    }
-
-    private void signIn() {
-        Intent signIntent = gsc.getSignInIntent();
-        startActivityForResult(signIntent, Constant.CODE_GOOGLE);
-    }*/
     private void register(String name1, String email1, String password1) {
         disposable.add(apiBanHang.registerUser(name1, email1, password1)
                 .subscribeOn(Schedulers.io())
@@ -136,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
                 .subscribe(
                         resultModel -> {
                             if(resultModel.isSuccess()){
-                                text(resultModel.getMessage());
+                                text("Tạo tài khoản thành công");
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -146,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
                             }
                         },
                         throwable -> {
-                            text("Error");
+                            text(throwable.getMessage());
                         }
                 ));
     }
@@ -188,63 +161,4 @@ public class RegisterActivity extends AppCompatActivity /*implements FacebookCal
     void text(String v){
         Toast.makeText(this, v+"", Toast.LENGTH_SHORT).show();
     }
-
-    /*private void result() {
-        GraphRequest graphRequest = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.e("kq", response.getJSONObject().toString());
-                        try {
-                            String name1 = object.getString("name");
-                            String email1 = object.getString("email");
-                            String password1 = object.getString("id");
-                            register(name1, email1, password1);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-        Bundle parame = new Bundle();
-        parame.putString("fields", "id,name,first_name,email");
-        graphRequest.setParameters(parame);
-        graphRequest.executeAsync();
-    }
-
-    @Override
-    public void onSuccess(LoginResult loginResult) {
-        result();
-    }
-
-    @Override
-    public void onCancel() {
-
-    }
-
-    @Override
-    public void onError(FacebookException error) {
-        Toast.makeText(this, "Error FB", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == Constant.CODE_GOOGLE){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                task.getResult(ApiException.class);
-                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-                if(acct!=null){
-                    String person = acct.getDisplayName();
-                    String email = acct.getEmail();
-                    register(person, email, "google");
-                }
-            } catch (ApiException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-    }*/
 }

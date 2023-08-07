@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         getProduct();
         getProductHot();
         getMenuCatagory();
+        getDelivery();
         //setupStickyFooter();
     }
     private void getCart() {
@@ -124,6 +125,19 @@ public class MainActivity extends AppCompatActivity {
                         throwable -> {
                             Toast.makeText(this, throwable.getMessage()+"", Toast.LENGTH_LONG).show();
                             Log.e("er",throwable.getMessage()+"");
+                        }
+                ));
+    }
+    private void getDelivery() {
+        disposable.add(apiBanHang.getDelivery()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        deliveryModel -> {
+                            manager.putString("imageDelivery", deliveryModel.getData().get(0).getLogo());
+                        },
+                        throwable -> {
+                            Log.e("er","Error delivery!");
                         }
                 ));
     }
@@ -212,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                         categoryModel -> {
                             if(categoryModel.isSuccess()){
                                 arrCategory = categoryModel.getData();
+                                Constant.listCategory = arrCategory;
                                 categoryAdapter = new CategoryAdapter(arrCategory, R.layout.item_category2, MainActivity.this);
                                 category.setAdapter(categoryAdapter);
                                 //category2.setAdapter(categoryAdapter);

@@ -125,15 +125,19 @@ public class DetailProductActivity extends AppCompatActivity {
                 optioned.setOption2(getSize);
                 String quantity1 = quantitytxt.getText().toString();
                 String idUser = manager.getString("_id");
-                Log.e("er",idUser+", "+getProductId+", "+getStoreId+", "+ new Gson().toJson(optioned));
+                Log.e("er12",idUser+", "+getProductId+", "+getStoreId+", "+ new Gson().toJson(optioned)+" "+quantity1+" "+price);
                 disposable.add(apiBanHang.addCart(idUser, new Gson().toJson(optioned).toString(), getProductId, getStoreId, quantity1, price)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 resultModel -> {
-                                    Snackbar.make(v, "Đã thêm vào giỏ hàng",2000)
+                                    if(resultModel.isSuccess())
+                                        Snackbar.make(v, "Đã thêm vào giỏ hàng",2000)
                                             .setActionTextColor(Color.GREEN)
                                             .show();
+                                    else{
+                                        Toast.makeText(DetailProductActivity.this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
+                                    }
                                 },
                                 throwable -> {
                                     Toast.makeText(DetailProductActivity.this, throwable.getMessage()+"", Toast.LENGTH_SHORT).show();

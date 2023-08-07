@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shope.model.GetOrder;
 import com.example.shope.utils.Constant;
+import com.example.shope.utils.ReferenceManager;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -19,11 +21,12 @@ import java.text.DecimalFormat;
 public class DetailOrderActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView shippingimg, productimg;
-    TextView shippingtxt, nameUser, phone, address,payment,
+    TextView shippingtxt, nameUser, phone, address, payment,
         nameProduct, nameshope, time, category, statusOrder, statusPay,
-        quantity, sumPrice, priceShipping, categoryPay;
+        quantity, sumPrice, priceShipping;
     TextView cancle;
     GetOrder order;
+    ReferenceManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,8 @@ public class DetailOrderActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         order = (GetOrder) intent.getSerializableExtra("data");
-        Picasso.get().load(order.getProductId().getImagePreview()).into(shippingimg);
+        //Toast.makeText(this, +"", Toast.LENGTH_SHORT).show();
+        Picasso.get().load(manager.getString("imageDelivery")).into(shippingimg);
         Picasso.get().load(order.getProductId().getImagePreview()).into(productimg);
         shippingtxt.setText(order.getDeliveryId().getName());
         nameUser.setText("Tên: "+order.getShippingAddressId().getDisplayName());
@@ -61,23 +65,27 @@ public class DetailOrderActivity extends AppCompatActivity {
                 order.getShippingAddressId().getDistrict()+", "+
                 order.getShippingAddressId().getProvince());
         if(order.getPaymentMethod().compareTo("COD")==0){
-            payment.setText("Thanh toán khi nhận hàng");
+            payment.setText("Phương thức Thanh Toán: Thanh toán khi nhận hàng");
             statusPay.setText("Thanh toán: Chưa thanh toán");
         }else {
             statusPay.setText("Thanh toán: Đã thanh toán");
-            payment.setText("Thanh toán bằng: "+order.getPaymentMethod());
+            payment.setText("Phương thức Thanh Toán: "+order.getPaymentMethod());
         }
         nameProduct.setText(order.getProductId().getName());
         nameshope.setText(order.getStoreId().getName());
-        category.setText("Phân loại: "+order.getOptionStyle().getOption1()+" - "+order.getOptionStyle().getOption2());
+        if(order.getOptionStyle().getOption1().compareTo("A")==0 || order.getOptionStyle().getOption1().compareTo("")==0){
+            category.setVisibility(View.GONE);
+        }else {
+            category.setVisibility(View.VISIBLE);
+            category.setText("Phân loại: "+order.getOptionStyle().getOption1()+" - "+order.getOptionStyle().getOption2());
+        }
+
         statusOrder.setText("Trạng thái đơn hàng: Chờ thanh toán"/*+order.getStatus()*/);
         quantity.setText("x"+order.getQuantity());
         time.setText( order.getCreatedAt().substring(0,10));
         DecimalFormat format = new DecimalFormat("###,###,###");
         sumPrice.setText(format.format(order.getTotalPrice()+order.getShippingPrice())+"đ");
         priceShipping.setText(format.format(order.getShippingPrice())+"đ");
-        categoryPay.setText("Phương thức thanh toán: "+order.getPaymentMethod());
-
     }
     private void anhXa() {
         toolbar = findViewById(R.id.toolbar);
@@ -87,7 +95,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         nameUser = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
         address = findViewById(R.id.addressDetail);
-        payment = findViewById(R.id.cachtra);
+        payment = findViewById(R.id.categorypayment);
         nameProduct = findViewById(R.id.tenSp);
         nameshope = findViewById(R.id.shop);
         time = findViewById(R.id.time);
@@ -98,6 +106,6 @@ public class DetailOrderActivity extends AppCompatActivity {
         sumPrice = findViewById(R.id.priceSum);
         priceShipping = findViewById(R.id.priceship);
         cancle = findViewById(R.id.huy);
-        categoryPay = findViewById(R.id.categorypayment);
+        manager = new ReferenceManager(DetailOrderActivity.this);
     }
 }

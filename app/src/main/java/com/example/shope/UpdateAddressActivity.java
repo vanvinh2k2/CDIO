@@ -152,9 +152,8 @@ public class UpdateAddressActivity extends AppCompatActivity {
                             .subscribe(
                                     resultModel -> {
                                         if(resultModel.isSuccess()){
-                                            Toast.makeText(UpdateAddressActivity.this, resultModel.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                            Toast.makeText(UpdateAddressActivity.this, "Cập nhập thành công", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                     },
                                     throwable -> {

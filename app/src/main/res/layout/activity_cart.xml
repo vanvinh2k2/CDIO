@@ -36,7 +36,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listCart"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:background="#F1F1F1"
         android:layout_marginRight="@dimen/_5sdp"
         android:layout_marginLeft="@dimen/_5sdp"
@@ -65,10 +65,10 @@
         app:layout_constraintStart_toStartOf="parent">
         <TextView
             android:id="@+id/thanhtoan"
-            android:text="Tổng thanh toán:"
+            android:text="Tổng tiền:"
             android:textSize="@dimen/_14ssp"
             android:layout_weight="1"
-            android:padding="@dimen/_2sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

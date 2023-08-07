@@ -50,7 +50,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderHolder>
         holder.price.setText("Giá: "+ format.format(getOrder.getTotalPrice()/getOrder.getQuantity())+"đ");
         holder.sumprice.setText("Tổng thanh toán: "+format.format(getOrder.getTotalPrice()+getOrder.getShippingPrice())+"đ");
         holder.quantity.setText("x"+getOrder.getQuantity());
-        holder.category.setText(getOrder.getOptionStyle().getOption1()+" - "+ getOrder.getOptionStyle().getOption2());
+        if(getOrder.getOptionStyle().getOption1().compareTo("A")==0 || getOrder.getOptionStyle().getOption1().compareTo("")==0){
+            holder.category.setVisibility(View.GONE);
+        }else {
+            holder.category.setVisibility(View.VISIBLE);
+            holder.category.setText(getOrder.getOptionStyle().getOption1()+" - "+ getOrder.getOptionStyle().getOption2());
+        }
         Picasso.get().load(getOrder.getProductId().getImagePreview())
                 .placeholder(R.drawable.dep2)
                 .into(holder.img);

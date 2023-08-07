@@ -92,9 +92,9 @@
                 <View
                     android:layout_width="@dimen/_1sdp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_3sdp"
                     android:background="@color/gray" />
 
@@ -171,7 +171,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:text="Mẫu: "
                     android:textColor="@color/black"
@@ -218,7 +218,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:text="Size: "
                     android:textColor="@color/black"
@@ -290,7 +290,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/_65sdp"
                     android:layout_height="wrap_content"
                     android:text="Số lượng: "
                     android:textColor="@color/black"

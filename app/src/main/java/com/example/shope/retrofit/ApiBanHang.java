@@ -144,4 +144,21 @@ public interface ApiBanHang {
     Observable<OrderModel> getOrder(
             @Path("user") String user
     );
+
+    @POST("auth/social-login")
+    @FormUrlEncoded
+    Observable<UserModel> loginGoogle(
+            @Field("avatar") String avatar,
+            @Field("displayName") String displayName,
+            @Field("email") String email,
+            @Field("googleId") String googleId
+    );
+
+    @POST("auth/social-login")
+    @FormUrlEncoded
+    Observable<UserModel> loginFacebook(
+            @Field("avatar") String avatar,
+            @Field("displayName") String displayName,
+            @Field("googleId") String googleId
+    );
 }

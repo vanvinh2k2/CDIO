@@ -12,6 +12,15 @@ public class Product implements Serializable {
     private float rating;
     private Price price, minPrice, maxPrice;
     private String _id, name, description, imagePreview, status;
+    private Category categoryId;
+
+    public Category getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Category categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public List<Option> getOptionStyles() {
         return optionStyles;

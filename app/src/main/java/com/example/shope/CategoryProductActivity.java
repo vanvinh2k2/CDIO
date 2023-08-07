@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shope.bannerAdapter.ProductAdapter;
@@ -16,6 +18,7 @@ import com.example.shope.retrofit.RetrofitClient;
 import com.example.shope.utils.Constant;
 import com.example.shope.utils.ReferenceManager;
 import com.nex3z.notificationbadge.NotificationBadge;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +33,24 @@ public class CategoryProductActivity extends AppCompatActivity {
     List<Product> arrProduct;
     ProductAdapter productAdapter;
     RecyclerView listProduct;
-    NotificationBadge tb;
     CompositeDisposable disposable = new CompositeDisposable();
     ReferenceManager manager;
+    String idCategory, nameCategory;
+    TextView kt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_product);
         anhXa();
+        getData();
         getTool();
         getProduct();
+    }
+
+    private void getData() {
+        Intent intent = getIntent();
+        idCategory = intent.getStringExtra("data");
+        nameCategory = intent.getStringExtra("data2");
     }
 
     private void getProduct() {
@@ -49,9 +60,22 @@ public class CategoryProductActivity extends AppCompatActivity {
                 .subscribe(
                         productModel -> {
                             if(productModel.isSuccess()){
-                                arrProduct = productModel.getData();
-                                productAdapter = new ProductAdapter(arrProduct, R.layout.item_product, CategoryProductActivity.this);
-                                listProduct.setAdapter(productAdapter);
+                                arrProduct.clear();
+                                for(int i=0;i<productModel.getData().size();i++){
+                                    if(productModel.getData().get(i).getCategoryId().get_id().compareTo(idCategory)==0){
+                                        arrProduct.add(productModel.getData().get(i));
+                                    }
+                                }
+                                if(arrProduct.size()!=0){
+                                    listProduct.setVisibility(View.VISIBLE);
+                                    kt.setVisibility(View.GONE);
+                                    productAdapter = new ProductAdapter(arrProduct, R.layout.item_product, CategoryProductActivity.this);
+                                    listProduct.setAdapter(productAdapter);
+                                }else{
+                                    kt.setVisibility(View.VISIBLE);
+                                    listProduct.setVisibility(View.GONE);
+                                }
+
                             }
                         },
                         throwable -> {
@@ -63,6 +87,7 @@ public class CategoryProductActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(nameCategory);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_back);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,29 +101,9 @@ public class CategoryProductActivity extends AppCompatActivity {
         arrProduct = new ArrayList<>();
         manager = new ReferenceManager(CategoryProductActivity.this);
         toolbar = findViewById(R.id.toolbar);
+        kt = findViewById(R.id.notify);
         listProduct = findViewById(R.id.listproduct);
         apiBanHang = RetrofitClient.getInstance(Constant.BASE_URL).create(ApiBanHang.class);
-        tb = findViewById(R.id.soluong);
-    }
-    @Override
-    protected void onResume() {
-        disposable.add(apiBanHang.getCart(manager.getString("_id"))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        cartModel -> {
-                            if(cartModel.isSuccess()){
-                                Constant.allProduct = cartModel.getData();
-                                if(Constant.allProduct.size()!=0)
-                                    tb.setText(String.valueOf(Constant.allProduct.size()));
-                            }
-
-                        },
-                        throwable -> {
-                            Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                ));
-        super.onResume();
     }
 
     @Override

@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .subscribe(
                         resultModel -> {
                             if(resultModel.isSuccess()){
-                                Toast.makeText(this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Đã xóa thành công", Toast.LENGTH_SHORT).show();
                                 getListAddress();
                             }
                         },
@@ -76,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if(addressModel.isSuccess()){
                                 arrAddress = addressModel.getData();
                                 Constant.listAddress = arrAddress;
-                                phonetxt.setText("Phone: "+arrAddress.get(0).getPhone());
+                                phonetxt.setText("SDT: "+arrAddress.get(0).getPhone());
                                 adapter = new AddressAdapter(R.layout.item_address, ProfileActivity.this, arrAddress);
                                 listAddress.setAdapter(adapter);
                             }

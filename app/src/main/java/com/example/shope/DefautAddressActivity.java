@@ -58,8 +58,8 @@ public class DefautAddressActivity extends AppCompatActivity {
                             .subscribe(
                                     resultModel -> {
                                         if(resultModel.isSuccess()){
-                                            Toast.makeText(DefautAddressActivity.this, resultModel.getMessage()+"", Toast.LENGTH_SHORT).show();
-                                            //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                            Toast.makeText(DefautAddressActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                                            finish();
                                         }
                                     },
                                     throwable -> {
